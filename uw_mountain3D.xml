@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <badlands xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
   <!-- Regular grid structure -->
   <grid>
     <!-- Optional parameter (integer) used to decrease TIN resolution.
@@ -10,24 +11,16 @@
     <!-- Underworld flag.  -->
     <udw>1</udw>
   </grid>
-
-  <!-- Sea-level structure -->
-  <sea>
-    <!-- Relative sea-level position [m] -->
-    <position>-200.</position>
-    <!-- Sea-level curve - (optional) -->
-    <!--curve>data/sealvl.csv</curve-->
-  </sea>
-
+  
   <!-- Simulation time structure -->
   <time>
     <!-- Simulation start time [a] -->
     <start>0.</start>
     <!-- Simulation end time [a] -->
-    <end>10000000.</end> 
+    <end>5000000.</end>
     <!-- Display interval [a] -->
     <!-- This will be overridden by the linkage, so it doesn't matter -->
-    <display>10000.</display>
+    <display>100000.</display>
   </time>
 
   <!-- Precipitation structure -->
@@ -39,24 +32,24 @@
             <!-- Rain start time [a] -->
             <rstart>0.</rstart>
             <!-- Rain end time [a] -->
-            <rend>2000000.</rend>
+            <rend>1500000.</rend>
             <!-- Precipitation value [m/a] - (optional) -->
             <rval>1.</rval>
         </rain>
         <!-- Orographic precipitation model definition -->
         <rain>
             <!-- Rain start time [a] -->
-            <rstart>2000000.</rstart>
+            <rstart>1500000.</rstart>
             <!-- Rain end time [a] -->
-            <rend>10000000.</rend>
+            <rend>5000000.</rend>
             <!-- Rain computation time step [a] -->
-            <ortime>10000.</ortime>
+            <ortime>100000.</ortime>
             <!-- Background precipitation value [m/a] -->
             <rbgd>1.</rbgd>
             <!-- Minimal precipitation value [m/a] -->
             <rmin>0.1</rmin>
             <!-- Maximal precipitation value [m/a] -->
-            <rmax>1.</rmax>
+            <rmax>2.</rmax>
             <!-- Wind velocity along X (W-E) direction [m/s] -->
             <windx>0.</windx>
             <!-- Wind velocity along Y (S-N) direction [m/s] -->
@@ -78,6 +71,43 @@
                  Optional default is set to 3000 m -->
             <hw>2000.</hw>
         </rain>
+        <?ignore
+        <!-- Orographic precipitation model definition -->
+        <rain>
+            <!-- Rain start time [a] -->
+            <rstart>0.</rstart>
+            <!-- Rain end time [a] -->
+            <rend>50000000.</rend>
+            <!-- Rain computation time step [a] -->
+            <ortime>100000.</ortime>
+            <!-- Background precipitation value [m/a] -->
+            <rbgd>1.</rbgd>
+            <!-- Minimal precipitation value [m/a] -->
+            <rmin>0.1</rmin>
+            <!-- Maximal precipitation value [m/a] -->
+            <rmax>2.</rmax>
+            <!-- Wind velocity along X (W-E) direction [m/s] -->
+            <windx>0.</windx>
+            <!-- Wind velocity along Y (S-N) direction [m/s] -->
+            <windy>2.</windy>
+            <!-- Time conversion from cloud water to hydrometeors
+                 range from 200 to 2000 [s]. Optional default is set
+                 to 1000 s -->
+            <tauc>300.</tauc>
+            <!-- Time for hydrometeor fallout range from 200 to 2000 [s].
+                 Optional default is set to 1000 s -->
+            <tauf>750.</tauf>
+            <!-- Moist stability frequency range from 0 to 0.01 [/s].
+                 Optional default is set to 0.005 /s -->
+            <nm>0.005</nm>
+            <!-- Uplift sensitivity factor range from 0.001 to 0.02 [kg/m3].
+                 Optional default is set to 0.005 kg/m3 -->
+            <cw>0.005</cw>
+            <!-- Depth of the moist layer range from 1000 to 5000 [m].
+                 Optional default is set to 3000 m -->
+            <hw>2000.</hw>
+        </rain>
+        ?>
     </precipitation>
 
   <!-- Stream power law parameters:
@@ -91,39 +121,31 @@
              and sediment transport capacity.
              Generally, m and n are both positive, and their ratio
              (m/n) is considered to be close to 0.5 -->
-    <!-- m  0.5 for detach., -0.25 for saltation-abrasion, 0 for abrasion-incision
-         n  1 for detach., -0.5 for saltation-abrasion, 0 for abrasion-incision -->
     <m>0.5</m>
-    <n>1.0</n>         
+    <n>1.0</n>
     <!-- The erodibility coefficient is scale-dependent and its value depend
               on lithology and mean precipitation rate, channel width, flood
               frequency, channel hydraulics. -->
-    <erodibility>1.e-6</erodibility>       <!-- [a^-1] !!!!! -->
-    <diffnb>0</diffnb>
+    <erodibility>8.e-6</erodibility>
+    <diffnb>10</diffnb>
     <diffprop>0.1</diffprop>
   </sp_law>
-  
-  <!-- Hillslope diffusion parameters:
-     Parameterisation of the sediment transport includes the simple creep transport
-     law which states that transport rate depends linearly on topographic gradient. -->
+
+  <!--strata>
+    <stratdx>5000.</stratdx>
+    <laytime>10000.</laytime>
+  </strata>
+-->
+  <!-- Linear slope diffusion parameters:
+         Parameterisation of the sediment transport includes the simple creep transport
+         law which states that transport rate depends linearly on topographic gradient. -->
   <creep>
     <!-- Surface diffusion coefficient [m2/a] -->
-    <caerial>0.005</caerial>
+    <caerial>0.1</caerial>
     <!-- Marine diffusion coefficient [m2/a] -->
-    <cmarine>0.001</cmarine>
-    <!-- Critical slope for non-linear diffusion [m/m] - optional.
-         Default value is set to 0 meaning non-lnear diffusion is not considered. -->
-    <cslp>0</cslp>
-    <!-- River transported sediment diffusion
-         coefficient in marine realm [m2/a] -->
-    <criver>10.</criver>
-    <!-- Critical slope above which slope failure are triggered [m/m] - optional.
-         Default value is set to 0 meaning non-lnear diffusion is not considered. -->
-    <sfail>0</sfail>
-    <!-- Triggered failure sediment diffusion coefficient [m2/a] -->
-    <cfail>3.</cfail>
+    <cmarine>1.0</cmarine>
+    <criver>0.</criver>
   </creep>
-
   <!-- Output folder path -->
   <outfolder>outbdls</outfolder>
 </badlands>
