@@ -5,7 +5,9 @@ UWG - Rivers & Mountains
 
 This tutorial provides a numerical modeling case of drainage evolution influenced by tectonics coupled with surface processes. It's a 3-D fully coupled model built by UWGeodyanmics module [(Beucher et al., 2018)](https://www.theoj.org/joss-papers/joss.01136/10.21105.joss.01136.pdf).
 
-![](images/TM.gif)![](images/LEM_CM.gif)
+<center class="half">
+    <img src="images/TM.gif" width="200"/><img src="images/LEM_CM.gif" width="400"/>
+</center>
 
 ### **Model settings**
 
